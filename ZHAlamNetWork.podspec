@@ -21,22 +21,20 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/zhanghua/ZHAlamNetWork'
+  s.homepage         = 'https://github.com/zhanghua19860221/ZHAlamNetWork'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'zhanghua' => '3051942353@qq.com' }
-  s.source           = { :git => 'https://github.com/zhanghua/ZHAlamNetWork.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/zhanghua19860221/ZHAlamNetWork.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
 
   s.source_files = 'ZHAlamNetWork/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'ZHAlamNetWork' => ['ZHAlamNetWork/Assets/*.png']
-  # }
+  s.dependency 'Alamofire', '5.6.1'
+  s.dependency 'Moya', '15.0.0'
+  s.dependency 'HandyJSON', '5.0.2'
+  s.dependency 'Toast-Swift', '5.0.1'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end

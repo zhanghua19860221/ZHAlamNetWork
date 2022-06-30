@@ -1,0 +1,6 @@
+framework module ZHAlamNetWork {
+  umbrella header "ZHAlamNetWork-umbrella.h"
+
+  export *
+  module * { export * }
+}
