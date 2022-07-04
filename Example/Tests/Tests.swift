@@ -1,5 +1,4 @@
 import XCTest
-import ZHAlamNetWork
 
 class Tests: XCTestCase {
     

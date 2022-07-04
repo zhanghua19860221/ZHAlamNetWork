@@ -9,7 +9,7 @@ import UIKit
 /**
  网络状态
  */
-enum NetworkStatus: String {
+public enum NetworkStatus: String {
     
     case unknown = "未知网络"
     
@@ -22,7 +22,7 @@ enum NetworkStatus: String {
 /**
  缓存策略
  */
-enum ZHCachePolicy: Int {
+ public enum ZHCachePolicy: Int {
     // 只从网络获取数据，且数据不会缓存在本地
     case ZHCachePolicyIgnoreCache = 0
     // 只从缓存读数据，如果缓存没有数据，返回一个空
@@ -38,8 +38,8 @@ enum ZHCachePolicy: Int {
     
 }
 
-class ZHHttpGeneralTools: NSObject {
+public class ZHHttpGeneralTools: NSObject {
     // 获取当前窗口 keyWindow
-    static let keyWindow:UIWindow = (UIApplication.shared.delegate?.window ?? UIApplication.shared.keyWindow)!
+    public static let keyWindow:UIWindow = (UIApplication.shared.delegate?.window ?? UIApplication.shared.keyWindow)!
     
 }

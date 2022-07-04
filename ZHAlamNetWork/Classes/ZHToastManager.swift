@@ -9,12 +9,12 @@ import UIKit
 import Toast_Swift
 
 //默认展示时长
-fileprivate var toastShowTime:TimeInterval = 3
+public var toastShowTime:TimeInterval = 3
 
 /**
  设置展示时长
  */
-func setToastShowTime(time:TimeInterval){
+public func setToastShowTime(time:TimeInterval){
     toastShowTime = time
 }
 
@@ -22,7 +22,7 @@ func setToastShowTime(time:TimeInterval){
  展示Toast
  - view：Toast所在视图
  */
-func ZHToastKeyWindowShow(view:UIView? = ZHHttpGeneralTools.keyWindow){
+public func ZHToastKeyWindowShow(view:UIView? = ZHHttpGeneralTools.keyWindow){
     guard let showView = view else {return}
     showView.makeToastActivity(.center)
 }
@@ -31,7 +31,7 @@ func ZHToastKeyWindowShow(view:UIView? = ZHHttpGeneralTools.keyWindow){
  隐藏Toast
  - view：Toast所在视图
  */
-func ZHToastKeyWindowHide(view:UIView? = ZHHttpGeneralTools.keyWindow) {
+public func ZHToastKeyWindowHide(view:UIView? = ZHHttpGeneralTools.keyWindow) {
     guard let hideView = view else { return }
     if Thread.isMainThread {
         hideView.hideToastActivity()
@@ -46,7 +46,7 @@ func ZHToastKeyWindowHide(view:UIView? = ZHHttpGeneralTools.keyWindow) {
  隐藏所有Toast
  - view：Toast所在视图(默认移除所有keyWindow 上的toast ，如想移除指定视图上的toast，需将view 作为参数传入)
  */
-func ZHHideAllToasts(view:UIView? = ZHHttpGeneralTools.keyWindow) {
+public func ZHHideAllToasts(view:UIView? = ZHHttpGeneralTools.keyWindow) {
     guard let hideView = view else { return }
     hideView.hideAllToasts()
 }
@@ -60,7 +60,7 @@ func ZHHideAllToasts(view:UIView? = ZHHttpGeneralTools.keyWindow) {
  - position：展示位置
  - view：    Toast所在视图
  */
-func ZHToastKeyWindowShowText(_ text:String = "",duration:TimeInterval = toastShowTime ,position:ToastPosition = .center,view:UIView? = ZHHttpGeneralTools.keyWindow) {
+public func ZHToastKeyWindowShowText(_ text:String = "",duration:TimeInterval = toastShowTime ,position:ToastPosition = .center,view:UIView? = ZHHttpGeneralTools.keyWindow) {
     guard let showView = view else { return }
     showView.makeToast(text,duration: duration,position: position)
 
@@ -70,7 +70,7 @@ func ZHToastKeyWindowShowText(_ text:String = "",duration:TimeInterval = toastSh
  隐藏文本Toast
  - view：Toast所在视图
  */
-func ZHToastKeyWindowHideText(view:UIView? = ZHHttpGeneralTools.keyWindow) {
+public func ZHToastKeyWindowHideText(view:UIView? = ZHHttpGeneralTools.keyWindow) {
     guard let hideView = view else { return }
     hideView.hideToast(view!)
 }

@@ -7,17 +7,22 @@
 //
 
 import UIKit
+import ZHAlamNetWork
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
+        
+        // 设置请求头
+        ZHNetwork.initNetworkHeader()
+        // 设置网络基础配置
+        ZHNetwork.initNetworkConfig()
+        // 网络请求
+        httpRequest(TestManagerEnum.get_leftData, modelType: nil, completion: { data, code in
+            print("datadatadatadata -- \(data ?? "888") ----\(code)")
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        }, failed: nil, errorResult: nil, isShowToast: true,cachePolicy: .ZHCachePolicyIgnoreCache)
     }
 
 }

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "summary": "A short description of ZHAlamNetWork.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/zhanghua/ZHAlamNetWork",
+  "homepage": "https://github.com/zhanghua19860221/ZHAlamNetWork",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,11 +12,25 @@
     "zhanghua": "3051942353@qq.com"
   },
   "source": {
-    "git": "https://github.com/zhanghua/ZHAlamNetWork.git",
+    "git": "https://github.com/zhanghua19860221/ZHAlamNetWork.git",
     "tag": "0.1.0"
   },
   "platforms": {
     "ios": "10.0"
   },
-  "source_files": "ZHAlamNetWork/Classes/**/*"
+  "source_files": "ZHAlamNetWork/Classes/**/*",
+  "dependencies": {
+    "Alamofire": [
+      "5.6.1"
+    ],
+    "Moya": [
+      "15.0.0"
+    ],
+    "HandyJSON": [
+      "5.0.2"
+    ],
+    "Toast-Swift": [
+      "5.0.1"
+    ]
+  }
 }

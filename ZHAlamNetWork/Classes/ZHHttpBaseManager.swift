@@ -11,27 +11,19 @@ import Foundation
 
 /** 超时时长*/
 private var requestTimeOut: Double = 30
+
 /** 数据请求成功StatusCode*/
 private var requestSuccessCode: Int = 10000
 
 
-/** 成功数据的回调*/
-typealias successCallBack = (Any?, Int) ->()
-
-/** 失败的回调*/
-typealias failedCallBack = (Any?, Int) ->()
-
-/// 网络错误的回调
-typealias errorCallBack = (Any?) -> ()
-
 /** 请求失败统一处理*/
-typealias responseErrorCallback = (Any?) ->()
+typealias ResponseErrorCallback = (Any?) ->()
 
 /** 请求错误统一处理*/
-typealias responseFailedCallBack = (Any?) ->()
+typealias ResponseFailedCallBack = (Any?) ->()
 
 /** 请求成功统一处理*/
-typealias responseSuccessCallBack = ([String: Any]) ->(Any?)
+typealias ResponseSuccessCallBack = ([String: Any]) ->(Any?)
 
 /** 请求返回结果Key*/
 fileprivate var RESULT_DATA = "data"    // 数据
@@ -41,26 +33,25 @@ fileprivate var RESULT_MESSAGE = "msg"  // 错误消息提示
 fileprivate var CONNECT_ERROR = "网络连接错误，请稍后重试"  // 错误消息提示
 
 
-fileprivate var responseBlock:responseSuccessCallBack?
+var responseBlock:ResponseSuccessCallBack?
 
-fileprivate var responseErrorBlock:responseErrorCallback?
+var responseErrorBlock:ResponseErrorCallback?
 
-fileprivate var responseFailedBlock:responseFailedCallBack?
-
+var responseFailedBlock:ResponseFailedCallBack?
 
 
 /**
  设置网络请求超时时间
  */
-func setRequestTimeOut(time:Double){
+public func setHttpRequestTimeOut(time:Double){
     
     requestTimeOut = time
 }
 
 /**
- 设置网络成功StatusCode
+ 设置网络成功Code
  */
-func setRequestSuccessStatusCode(code:Int){
+public func setHttpRequestWithStatusCode(code:Int){
     
     requestSuccessCode = code
 }
@@ -72,7 +63,7 @@ func setRequestSuccessStatusCode(code:Int){
  statusCode：错误码
 
  */
-func setResponseFormat(result:String ,statusCode:String,message:String){
+public func setHttpResponseFormat(result:String ,statusCode:String,message:String){
     RESULT_DATA = result
     RESULT_CODE = statusCode
     RESULT_MESSAGE = message
@@ -81,14 +72,14 @@ func setResponseFormat(result:String ,statusCode:String,message:String){
 /**
  设置网络连接错误提示语
  */
-func setConnectErrorString(tip:String){
+public func setHttpErrorTipsForConnect(tip:String){
     
     CONNECT_ERROR = tip
 }
 /**
  请求失败统一处理
  */
-func setResponseErrorCallBack(callBack:@escaping responseErrorCallback){
+public func setResponseErrorCallBack(callBack:@escaping (Any?) ->()){
     
     responseErrorBlock = callBack
 }
@@ -96,7 +87,7 @@ func setResponseErrorCallBack(callBack:@escaping responseErrorCallback){
 /**
  请求错误统一处理
  */
-func setResponseFailedCallBack(callBack:@escaping responseFailedCallBack){
+public func setResponseFailedCallBack(callBack:@escaping (Any?) ->()){
     
     responseFailedBlock = callBack
 }
@@ -105,7 +96,7 @@ func setResponseFailedCallBack(callBack:@escaping responseFailedCallBack){
 /**
  请求成功统一处理
  */
-func setResponseSuccessCallBack(callBack:@escaping responseSuccessCallBack){
+public func setResponseSuccessCallBack(callBack:@escaping ([String: Any]) ->(Any?)){
     
     responseBlock = callBack
 }
@@ -220,14 +211,14 @@ let Provider = MoyaProvider<MultiTarget>(endpointClosure: myEndpointClosure, req
  cachePolicy: 缓存策略
  cacheID: 设置缓存ID（缓存默认是通过URL做为key来缓存的，如果两个URL相同仅是单参数不同时，就需要传入cacheID来区分缓存）
  */
-func NetWorkRequest<T:ZHHttpBaseModel>(_ target: TargetType,
+public func httpRequest<T:ZHHttpBaseModel>(_ target: TargetType,
                                        modelType: T.Type? = nil.self,
-                                       completion: @escaping successCallBack,
+                                       completion:@escaping (Any?, Int) ->(),
                                        isShowToast: Bool = false,
                                        cachePolicy:ZHCachePolicy = ZHCachePolicy(rawValue: 0)! ,
                                        cacheID:String = "")
 {
-    NetWorkRequest(target, modelType: modelType, completion: completion, failed: nil, errorResult: nil, isShowToast: isShowToast,cachePolicy:cachePolicy,cacheID:cacheID)
+    httpRequest(target, modelType: modelType, completion: completion, failed: nil, errorResult: nil, isShowToast: isShowToast,cachePolicy:cachePolicy,cacheID:cacheID)
 }
 
 /**
@@ -241,15 +232,15 @@ func NetWorkRequest<T:ZHHttpBaseModel>(_ target: TargetType,
  cachePolicy: 缓存策略
  cacheID: 设置缓存ID（缓存默认是通过URL做为key来缓存的，如果两个URL相同仅是单参数不同时，就需要传入cacheID来区分缓存）
 */
-func NetWorkRequest<T: ZHHttpBaseModel>(_ target: TargetType,
+public func httpRequest<T: ZHHttpBaseModel>(_ target: TargetType,
                                         modelType: T.Type? = nil.self,
-                                        completion: @escaping successCallBack,
-                                        failed: failedCallBack?,
+                                        completion:@escaping (Any?, Int) ->(),
+                                        failed:((Any?, Int) ->())?,
                                         isShowToast: Bool = false,
                                         cachePolicy:ZHCachePolicy = ZHCachePolicy(rawValue: 0)! ,
                                         cacheID:String = "")
 {
-    NetWorkRequest(target, modelType: modelType, completion: completion, failed: failed, errorResult: nil, isShowToast: isShowToast,cachePolicy:cachePolicy,cacheID:cacheID)
+    httpRequest(target, modelType: modelType, completion: completion, failed: failed, errorResult: nil, isShowToast: isShowToast,cachePolicy:cachePolicy,cacheID:cacheID)
 }
 
 
@@ -270,11 +261,11 @@ func NetWorkRequest<T: ZHHttpBaseModel>(_ target: TargetType,
  👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
  */
 @discardableResult
-func NetWorkRequest<T: ZHHttpBaseModel>(_ target: TargetType,
+public func httpRequest<T: ZHHttpBaseModel>(_ target: TargetType,
                                         modelType: T.Type? = nil.self,
-                                        completion: @escaping successCallBack,
-                                        failed: failedCallBack?,
-                                        errorResult: errorCallBack?,
+                                        completion:@escaping (Any?, Int) ->(),
+                                        failed: ((Any?, Int) ->())?,
+                                        errorResult:((Any?) ->())?,
                                         isShowToast: Bool = false,
                                         cachePolicy:ZHCachePolicy = ZHCachePolicy(rawValue: 0)! ,
                                         cacheID:String = "") -> Cancellable?
@@ -334,9 +325,9 @@ func NetWorkRequest<T: ZHHttpBaseModel>(_ target: TargetType,
  */
 fileprivate func HttpDataWithCacheForURL<T: ZHHttpBaseModel>(_ target: TargetType,
                                         modelType: T.Type? = nil.self,
-                                        completion: @escaping successCallBack,
-                                        failed: failedCallBack?,
-                                        errorResult: errorCallBack?,
+                                        completion:@escaping (Any?, Int) ->(),
+                                        failed: ((Any?, Int) ->())?,
+                                        errorResult: ((Any?) ->())?,
                                         isShowToast: Bool,
                                         isCache: Bool,
                                         cacheID:String)-> Cancellable?
@@ -420,9 +411,9 @@ fileprivate func HttpDataWithCacheForURL<T: ZHHttpBaseModel>(_ target: TargetTyp
  */
 fileprivate func HttpDataWithCacheForRequestFaile<T: ZHHttpBaseModel>(_ target: TargetType,
                                         modelType: T.Type? = nil.self,
-                                        completion: @escaping successCallBack,
-                                        failed: failedCallBack?,
-                                        errorResult: errorCallBack?,
+                                        completion:@escaping (Any?, Int) ->(),
+                                        failed: ((Any?, Int) ->())?,
+                                        errorResult: ((Any?) ->Void)?,
                                         isShowToast: Bool,
                                         isCache: Bool,
                                         cacheID:String)-> Cancellable?
@@ -514,9 +505,9 @@ fileprivate func HttpDataWithCacheForRequestFaile<T: ZHHttpBaseModel>(_ target: 
 @discardableResult
 func HttpDataForCache<T: ZHHttpBaseModel>(_ target: TargetType,
                                         modelType: T.Type? = nil.self,
-                                        completion: @escaping successCallBack,
-                                        failed: failedCallBack?,
-                                        errorResult: errorCallBack?,
+                                        completion:@escaping (Any?, Int) ->(),
+                                        failed: ((Any?, Int) ->())?,
+                                        errorResult: ((Any?) ->Void)?,
                                         isShowToast: Bool,
                                         isNetwork: Bool,
                                         cacheID:String)-> Cancellable?
@@ -571,9 +562,9 @@ func HttpDataForCache<T: ZHHttpBaseModel>(_ target: TargetType,
 @discardableResult
 func HttpDataForCacheWithURL<T: ZHHttpBaseModel>(_ target: TargetType,
                                         modelType: T.Type? = nil.self,
-                                        completion: @escaping successCallBack,
-                                        failed: failedCallBack?,
-                                        errorResult: errorCallBack?,
+                                        completion:@escaping (Any?, Int) ->(),
+                                        failed: ((Any?, Int) ->())?,
+                                        errorResult: ((Any?) ->Void)?,
                                         isShowToast: Bool,
                                         cacheID:String)-> Cancellable?
 {
@@ -615,7 +606,8 @@ func HttpDataForCacheWithURL<T: ZHHttpBaseModel>(_ target: TargetType,
 func processingData<T: ZHHttpBaseModel>(jsonData:[String: Any],
                                         code:Int,
                                         modelType: T.Type? = nil.self,
-                                        completion: @escaping successCallBack){
+                                        completion: @escaping (Any?, Int) ->()){
+    
     // 返回未处理的成功结果
     guard let responseSuccessBlock = responseBlock else {
         completion(jsonData,code)

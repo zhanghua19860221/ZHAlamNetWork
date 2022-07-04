@@ -8,12 +8,12 @@
 import UIKit
 import HandyJSON
 
-class ZHHttpBaseModel: HandyJSON {
-    required init() {}
+public class ZHHttpBaseModel: HandyJSON {
+    required public init() {}
 
-    func didFinishMapping() {}
+    public func didFinishMapping() {}
     
-    func mapping(mapper: HelpingMapper) {}
+    public func mapping(mapper: HelpingMapper) {}
     
     /** 字典转模型*/
     public static func changeJsonToModel(parameters: [String: Any]) -> Any? {
