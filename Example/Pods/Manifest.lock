@@ -1,16 +1,18 @@
 PODS:
-  - Alamofire (5.6.1)
+  - Alamofire (4.9.1)
   - HandyJSON (5.0.2)
-  - Moya (15.0.0):
-    - Moya/Core (= 15.0.0)
-  - Moya/Core (15.0.0):
-    - Alamofire (~> 5.0)
+  - Moya (13.0.1):
+    - Moya/Core (= 13.0.1)
+  - Moya/Core (13.0.1):
+    - Alamofire (~> 4.1)
+    - Result (~> 4.1)
+  - Result (4.1.0)
   - Toast-Swift (5.0.1)
-  - ZHAlamNetWork (0.1.0):
-    - Alamofire (= 5.6.1)
-    - HandyJSON (= 5.0.2)
-    - Moya (= 15.0.0)
-    - Toast-Swift (= 5.0.1)
+  - ZHAlamNetWork (0.5.0):
+    - Alamofire (= 4.9.1)
+    - HandyJSON
+    - Moya
+    - Toast-Swift
 
 DEPENDENCIES:
   - ZHAlamNetWork (from `../`)
@@ -20,6 +22,7 @@ SPEC REPOS:
     - Alamofire
     - HandyJSON
     - Moya
+    - Result
     - Toast-Swift
 
 EXTERNAL SOURCES:
@@ -27,11 +30,12 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
-  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
-  ZHAlamNetWork: ab1878cc03f9a5a253460b26c38086738951efed
+  ZHAlamNetWork: 6761447badccdf45e6de21d8f36c0bc6d944967d
 
 PODFILE CHECKSUM: be9d13996813c26a254dfb4e9329255cab263dcd
 
