@@ -16,26 +16,26 @@ extension UIDevice {
     static func currentNetReachability(callBack:@escaping (NetworkStatus)->()) ->(Bool){
         let statusManager  = NetworkReachabilityManager()
         var connectStatus = true
-        statusManager?.startListening(onUpdatePerforming: { status in
-            switch status {
-            case .notReachable:
-                callBack(NetworkStatus.notReachable)
-                connectStatus = false
-                break
-            case .unknown:
-                callBack(NetworkStatus.unknown)
-                break
-            case .reachable(_):
-                if (statusManager?.isReachableOnEthernetOrWiFi)! {
-                    callBack(NetworkStatus.WIFI)
-
-                } else if(statusManager?.isReachableOnCellular)!  {
-                    callBack(NetworkStatus.WWAN)
-                    
-                }
-                break
-            }
-        })
+//        statusManager?.startListening(onUpdatePerforming: { status in
+//            switch status {
+//            case .notReachable:
+//                callBack(NetworkStatus.notReachable)
+//                connectStatus = false
+//                break
+//            case .unknown:
+//                callBack(NetworkStatus.unknown)
+//                break
+//            case .reachable(_):
+//                if (statusManager?.isReachableOnEthernetOrWiFi)! {
+//                    callBack(NetworkStatus.WIFI)
+//
+//                } else if(statusManager?.isReachableOnCellular)!  {
+//                    callBack(NetworkStatus.WWAN)
+//
+//                }
+//                break
+//            }
+//        })
         return connectStatus
     }
 }

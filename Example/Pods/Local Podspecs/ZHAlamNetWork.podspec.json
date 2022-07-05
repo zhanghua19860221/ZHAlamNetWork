@@ -21,16 +21,16 @@
   "source_files": "ZHAlamNetWork/Classes/**/*",
   "dependencies": {
     "Alamofire": [
-      "5.6.1"
+      "4.9.1"
     ],
     "Moya": [
-      "15.0.0"
+
     ],
     "HandyJSON": [
-      "5.0.2"
+
     ],
     "Toast-Swift": [
-      "5.0.1"
+
     ]
   }
 }
