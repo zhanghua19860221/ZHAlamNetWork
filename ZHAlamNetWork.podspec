@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ZHAlamNetWork'
-  s.version          = '0.2.0'
+  s.version          = '0.3.0'
   s.summary          = 'A short description of ZHAlamNetWork.'
 
 # This description is used to generate tags and improve search results.
@@ -32,7 +32,7 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'ZHAlamNetWork/Classes/**/*'
   
-  s.dependency 'Alamofire', '5.6.1'
+  s.dependency 'Alamofire', '4.9.1'
   s.dependency 'Moya', '15.0.0'
   s.dependency 'HandyJSON', '5.0.2'
   s.dependency 'Toast-Swift', '5.0.1'
