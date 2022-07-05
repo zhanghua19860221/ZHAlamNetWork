@@ -60,7 +60,7 @@ extension Dictionary{
 }
 
 
-extension Date {
+public extension Date {
     // 获取 秒级 时间戳
     var timeStamp : Int {
         let timeInterval: TimeInterval = self.timeIntervalSince1970
@@ -75,7 +75,7 @@ extension Date {
     }
     
     // 计算传入的时间戳距离现在还有多少天，毫秒级
-    public func compareCurrentDays(timeStamp: String) -> String {
+    func compareCurrentDays(timeStamp: String) -> String {
         var differenceValue = Date().timeIntervalSinceNow - (Double(timeStamp) ?? 0)/1000
         if differenceValue < 0 {
             differenceValue = -differenceValue
@@ -91,7 +91,7 @@ extension Date {
         }
     }
     
-    public func compareCurrntTime(timeStamp:String) -> String {
+    func compareCurrntTime(timeStamp:String) -> String {
         //计算出时间戳距离现在时间的一个秒数(..s)
         let interval:TimeInterval=TimeInterval(timeStamp)!
         let date = Date (timeIntervalSince1970: interval)
@@ -123,7 +123,7 @@ extension Date {
     }
     
     // 通过时间戳 获取时间戳时间 （自定义 时间格式）
-    public func compareCustomCurrntTime(timeStamp:String ,formatter:String = "yyyy年MM月dd日 HH:mm") -> String {
+    func compareCustomCurrntTime(timeStamp:String ,formatter:String = "yyyy年MM月dd日 HH:mm") -> String {
         if timeStamp.count <= 0 {
             return ""
         }
@@ -141,7 +141,7 @@ extension Date {
     }
     
     // 获取当前时间 （可自定义 时间格式）
-    public func getCurrntTime(formatter:String = "yyyy年MM月dd日 HH:mm") -> String {
+    func getCurrntTime(formatter:String = "yyyy年MM月dd日 HH:mm") -> String {
         let  now =  NSDate ()
         let  timeInterval: TimeInterval  = now.timeIntervalSince1970
         let  timeStamp =  Int (timeInterval)
