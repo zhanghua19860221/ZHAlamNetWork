@@ -6,9 +6,6 @@
 //
 
 import UIKit
-import Moya
-import ZHAlamNetWork
-
 enum TestManagerEnum {
     //左侧 列表数据
     case get_leftData
@@ -45,6 +42,10 @@ extension TestManagerEnum: TargetType{
         case .get_leftData:
             return .requestPlain
         }
+    }
+    // Moya此版本(13.0.1)中 sampleData 方法拓展（extension）中默认没有实现 ，所以需要手动实现此方法 ，在高版本中此方法有默认的实现 不需要手动实现 
+    var sampleData: Data {
+        return Data()
     }
 }
 

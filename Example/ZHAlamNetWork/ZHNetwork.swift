@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import ZHAlamNetWork
 
 class ZHNetwork: NSObject {
     /**
