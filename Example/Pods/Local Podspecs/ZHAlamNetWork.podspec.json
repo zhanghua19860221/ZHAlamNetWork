@@ -1,6 +1,6 @@
 {
   "name": "ZHAlamNetWork",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "summary": "A short description of ZHAlamNetWork.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/zhanghua19860221/ZHAlamNetWork",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/zhanghua19860221/ZHAlamNetWork.git",
-    "tag": "0.8.0"
+    "tag": "0.9.0"
   },
   "platforms": {
     "ios": "10.0"

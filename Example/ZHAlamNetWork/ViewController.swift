@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import ZHAlamNetWork
-
 class ViewController: UIViewController {
 
     override func viewDidLoad() {

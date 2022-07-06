@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Moya
-import ZHAlamNetWork
 
 enum TestManagerEnum {
     //左侧 列表数据
@@ -46,5 +44,8 @@ extension TestManagerEnum: TargetType{
             return .requestPlain
         }
     }
+    
+    // 此协议方法在Moya的本版本(15.0.0)中已经 给到了默认实现 ，可以不需要手动实现 ，如果确需修改可在此重写该方法，返回所需Data() 。
+    //var sampleData: Data{ return Data()}
 }
 
