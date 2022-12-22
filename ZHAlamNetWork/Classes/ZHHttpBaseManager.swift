@@ -576,7 +576,10 @@ func HttpDataForCacheWithURL<T: ZHHttpBaseModel>(_ target: TargetType,
     
     // 获取缓存数据
     getCacheData(cachePath) { data in
-        guard let cacheData = data  else { return}
+        guard let cacheData = data  else {
+            cancellable = HttpDataWithCacheForURL(target, modelType: modelType, completion: completion, failed: failed, errorResult: errorResult, isShowToast: isShowToast, isCache: true,cacheID: cacheID)
+            return
+        }
         do {
             if let jsonData = try JSONSerialization.jsonObject(with: cacheData, options: .mutableLeaves) as? [String: Any] {
                 processingData(jsonData: jsonData, code: requestSuccessCode, modelType: modelType, completion: completion)
@@ -650,11 +653,19 @@ func processingData<T: ZHHttpBaseModel>(jsonData:[String: Any],
 func getCachePath(_ target: TargetType,cacheID:String) ->String{
     /// 缓存代码 设置缓存路径
     let pathcaches = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
-    let cachesDir = pathcaches[0]
-    let mutableSting = target.baseURL.absoluteString + target.path
-    let lastStr = mutableSting.replacingOccurrences(of: "/", with: "-")
-    let disPath = cacheID + cachesDir + "/" + lastStr + "-.text"
     
+    let cachesDir = pathcaches[0]
+
+    let mutableSting = target.baseURL.absoluteString + target.path
+
+    let replacStr0 = mutableSting.replacingOccurrences(of: "/", with: "-")
+    let replacStr1 = replacStr0.replacingOccurrences(of: ":", with: "-")
+    let replacStr2:String = replacStr1.replacingOccurrences(of: ".", with: "-")
+
+    let cachePath = replacStr2 + "Cache.txt"
+
+    let disPath = cacheID + cachesDir + "/" + cachePath
+
     return disPath
 }
 
@@ -664,7 +675,7 @@ func getCachePath(_ target: TargetType,cacheID:String) ->String{
  data 被保存缓存数据
  */
 func saveCacheData(_ cachePath: String, data:Data){
-    // 缓存
+    // 数据缓存
     let jsonString = String(data: data, encoding: String.Encoding.utf8) ?? ""
     DispatchQueue.global().async {
         do {
@@ -682,18 +693,27 @@ func saveCacheData(_ cachePath: String, data:Data){
  callBack  返回获取到的缓存数据
  */
 func getCacheData(_ cachePath: String,callBack:@escaping (Data?) ->()){
-    DispatchQueue.global().async {
-        do {
-            let str = try String .init(contentsOfFile: cachePath, encoding: String.Encoding.utf8)
-            DispatchQueue.main.async {
-                /// 字符串转化为data
-                let data = str.data(using: String.Encoding.utf8, allowLossyConversion: true)
-                callBack(data)
+    let fileManager = FileManager.default
+    // 校验缓存文件是否存在，存在则返回缓存数据，不存在返回nil (第一次进入情况下文件是不存在的)
+    if fileManager.fileExists(atPath: cachePath) {
+        DispatchQueue.global().async {
+            do {
+                let path = try String.init(contentsOfFile: cachePath, encoding: String.Encoding.utf8)
+                DispatchQueue.main.async {
+                    /// 字符串转化为Data
+                    let data = path.data(using: String.Encoding.utf8, allowLossyConversion: true)
+
+                    callBack(data)
+
+                }
+            } catch {
+                callBack(nil)
+                print("数据缓存获取失败-\(error)")
             }
-        } catch {
-            callBack(nil)
-            print("数据缓存获取失败-\(error)")
         }
+    } else {
+        // 缓存文件不存在返回nil
+        callBack(nil)
+        print("缓存文件不存在 ~")
     }
-    
 }
