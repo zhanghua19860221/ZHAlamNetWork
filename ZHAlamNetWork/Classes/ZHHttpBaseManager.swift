@@ -130,7 +130,8 @@ private let myEndpointClosure = { (target: TargetType) -> Endpoint in
      
 
     var endpoint = Endpoint(
-        url: url,
+        // URL中请求信息子模块中允许的字符集. "#%<>[\]^`{|}" 特殊字符集转码
+        url: url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!,
         sampleResponseClosure: { .networkResponse(200, target.sampleData) },
         method: target.method,
         task: task,
